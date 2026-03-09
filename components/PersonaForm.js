@@ -1,7 +1,7 @@
 "use client"
 
 import {useState,useEffect} from "react"
-import {supabase} from "crmfoment/lib/supabase"
+import {supabase} from "jalejo-cyber/crmfoment/lib/supabase"
 
 export default function PersonaForm({reload}){
 
