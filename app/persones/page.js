@@ -1,8 +1,8 @@
 "use client"
 
 import {useEffect,useState} from "react"
-import {supabase} from "../../lib/supabase"
-import PersonaForm from "../../components/PersonaForm"
+import {supabase} from "crmfoment/lib/supabase"
+import PersonaForm from "crmfoment/components/PersonaForm"
 
 export default function Persones(){
 
