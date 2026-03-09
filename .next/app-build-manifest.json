@@ -1,0 +1,52 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/chunks/app/_not-found/page-4b9eb8aab41bf6df.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/css/f9538d5e5372fedd.css",
+      "static/chunks/648-bf514a62e30b542a.js",
+      "static/chunks/app/layout-6f9a0187f8d75acd.js"
+    ],
+    "/empreses/page": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/chunks/115-efeaca68af44b2d8.js",
+      "static/chunks/app/empreses/page-49fc54510daff7c5.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/chunks/115-efeaca68af44b2d8.js",
+      "static/chunks/app/page-2eecf4d0d866a3ca.js"
+    ],
+    "/persones/page": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/chunks/115-efeaca68af44b2d8.js",
+      "static/chunks/app/persones/page-6715dcca3e8ed6db.js"
+    ],
+    "/programes/page": [
+      "static/chunks/webpack-c105cf7135d99ba2.js",
+      "static/chunks/fd9d1056-9f91b5e418130764.js",
+      "static/chunks/117-5f574706c2dff63c.js",
+      "static/chunks/main-app-97f09e3c392ffb91.js",
+      "static/chunks/115-efeaca68af44b2d8.js",
+      "static/chunks/app/programes/page-e3d56c4986c50d34.js"
+    ]
+  }
+}
