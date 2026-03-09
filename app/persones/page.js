@@ -1,84 +1,80 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { supabase } from "../../../lib/supabase"
-import { useParams } from "next/navigation"
+import Link from "next/link"
+import { supabase } from "../../lib/supabase"
+import PersonaForm from "../../components/PersonaForm"
 
-export default function PersonaDetail(){
+export default function Persones(){
 
-const { id } = useParams()
+  const [persones,setPersones] = useState([])
 
-const [persona,setPersona] = useState(null)
+  async function load(){
 
-useEffect(()=>{
-load()
-},[])
+    const {data} = await supabase
+      .from("persones")
+      .select(`
+        *,
+        programes(nom),
+        empreses(rao_social)
+      `)
 
-async function load(){
+    setPersones(data || [])
 
-const {data} = await supabase
-.from("persones")
-.select(`
-*,
-programes(nom),
-empreses(rao_social)
-`)
-.eq("id",id)
-.single()
+  }
 
-setPersona(data)
+  useEffect(()=>{
+    load()
+  },[])
 
-}
+  return(
 
-if(!persona) return <p>Carregant...</p>
+    <div>
 
-return(
+      <h1>Persones</h1>
 
-<div>
+      <div className="card">
+        <PersonaForm reload={load}/>
+      </div>
 
-<h1>{persona.nom} {persona.cognoms}</h1>
+      <div className="card">
 
-<div className="card">
+        <table>
 
-<h3>Dades personals</h3>
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Programa</th>
+              <th>Empresa</th>
+            </tr>
+          </thead>
 
-<p><b>Telèfon:</b> {persona.telefon}</p>
-<p><b>Email:</b> {persona.email}</p>
-<p><b>Data naixement:</b> {persona.data_naixement}</p>
-<p><b>NIF:</b> {persona.nif}</p>
-<p><b>Seguretat Social:</b> {persona.seguretat_social}</p>
-<p><b>Direcció:</b> {persona.direccio}</p>
-<p><b>Codi Postal:</b> {persona.codi_postal}</p>
+          <tbody>
 
-</div>
+            {persones.map(p=>(
+              <tr key={p.id}>
 
-<div className="card">
+                <td>
+                  <Link href={`/persones/${p.id}`}>
+                    {p.nom} {p.cognoms}
+                  </Link>
+                </td>
 
-<h3>Situació laboral</h3>
+                <td>{p.programes?.nom}</td>
 
-<p><b>Estat:</b> {persona.estat}</p>
-<p><b>Feina actual:</b> {persona.feina_actual}</p>
+                <td>{p.empreses?.rao_social}</td>
 
-</div>
+              </tr>
+            ))}
 
-<div className="card">
+          </tbody>
 
-<h3>Programa</h3>
+        </table>
 
-<p>{persona.programes?.nom}</p>
+      </div>
 
-</div>
+    </div>
 
-<div className="card">
-
-<h3>Empresa</h3>
-
-<p>{persona.empreses?.rao_social}</p>
-
-</div>
-
-</div>
-
-)
+  )
 
 }
