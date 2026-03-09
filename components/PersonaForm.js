@@ -1,66 +1,86 @@
-import {useState} from "react"
+"use client"
 
-export default function PersonaForm({onCreated}){
+import {useState,useEffect} from "react"
+import {supabase} from "../lib/supabase"
+
+export default function PersonaForm({reload}){
 
   const [form,setForm] = useState({})
+  const [programes,setProgrames] = useState([])
+  const [empreses,setEmpreses] = useState([])
 
-  const handleChange = (e)=>{
+  useEffect(()=>{
+
+    load()
+
+  },[])
+
+  async function load(){
+
+    const {data:p} = await supabase.from("programes").select("*")
+    const {data:e} = await supabase.from("empreses").select("*")
+
+    setProgrames(p)
+    setEmpreses(e)
+
+  }
+
+  function handleChange(e){
+
     setForm({
       ...form,
       [e.target.name]:e.target.value
     })
+
   }
 
-  const handleSubmit = async (e)=>{
+  async function submit(e){
+
     e.preventDefault()
 
-    await fetch("/api/persones",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(form)
-    })
+    await supabase
+      .from("persones")
+      .insert([form])
 
-    onCreated()
+    reload()
+
   }
 
   return(
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={submit}>
 
       <input name="nom" placeholder="Nom" onChange={handleChange}/>
 
       <input name="cognoms" placeholder="Cognoms" onChange={handleChange}/>
 
-      <select name="programa" onChange={handleChange}>
-        <option>Impulsa’t</option>
-        <option>Projecta’t</option>
-      </select>
-
       <input name="telefon" placeholder="Telèfon" onChange={handleChange}/>
 
       <input name="email" placeholder="Email" onChange={handleChange}/>
 
-      <input name="naixement" type="date" onChange={handleChange}/>
+      <select name="programa_id" onChange={handleChange}>
 
-      <input name="nif" placeholder="Identificació Fiscal" onChange={handleChange}/>
+        <option>Programa</option>
 
-      <input name="seguretat_social" placeholder="Seguretat Social" onChange={handleChange}/>
+        {programes.map(p=>(
+          <option value={p.id}>{p.nom}</option>
+        ))}
 
-      <input name="direccio" placeholder="Direcció" onChange={handleChange}/>
-
-      <input name="codi_postal" placeholder="Codi Postal" onChange={handleChange}/>
-
-      <select name="estat" onChange={handleChange}>
-        <option>Atur</option>
-        <option>Ocupat</option>
       </select>
 
-      <input name="feina_actual" placeholder="Feina actual (si ocupat)" onChange={handleChange}/>
+      <select name="empresa_id" onChange={handleChange}>
+
+        <option>Empresa</option>
+
+        {empreses.map(e=>(
+          <option value={e.id}>{e.rao_social}</option>
+        ))}
+
+      </select>
 
       <button>Guardar</button>
 
     </form>
 
   )
-
 }
