@@ -1,60 +1,84 @@
 "use client"
 
-import {useEffect,useState} from "react"
-import {supabase} from "../../lib/supabase"
-import PersonaForm from "../../components/PersonaForm"
+import { useEffect, useState } from "react"
+import { supabase } from "../../../lib/supabase"
+import { useParams } from "next/navigation"
 
-export default function Persones(){
+export default function PersonaDetail(){
 
-  const [persones,setPersones] = useState([])
+const { id } = useParams()
 
-  async function load(){
+const [persona,setPersona] = useState(null)
 
-    const {data} = await supabase
-      .from("persones")
-      .select("*, programes(nom), empreses(rao_social)")
+useEffect(()=>{
+load()
+},[])
 
-    setPersones(data)
+async function load(){
 
-  }
+const {data} = await supabase
+.from("persones")
+.select(`
+*,
+programes(nom),
+empreses(rao_social)
+`)
+.eq("id",id)
+.single()
 
-  useEffect(()=>{
-    load()
-  },[])
+setPersona(data)
 
-  return(
+}
 
-    <div>
+if(!persona) return <p>Carregant...</p>
 
-      <h1>Persones</h1>
+return(
 
-      <PersonaForm reload={load}/>
+<div>
 
-      <table>
+<h1>{persona.nom} {persona.cognoms}</h1>
 
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Programa</th>
-            <th>Empresa</th>
-          </tr>
-        </thead>
+<div className="card">
 
-        <tbody>
+<h3>Dades personals</h3>
 
-          {persones.map(p=>(
-            <tr key={p.id}>
-              <td>{p.nom} {p.cognoms}</td>
-              <td>{p.programes?.nom}</td>
-              <td>{p.empreses?.rao_social}</td>
-            </tr>
-          ))}
+<p><b>Telèfon:</b> {persona.telefon}</p>
+<p><b>Email:</b> {persona.email}</p>
+<p><b>Data naixement:</b> {persona.data_naixement}</p>
+<p><b>NIF:</b> {persona.nif}</p>
+<p><b>Seguretat Social:</b> {persona.seguretat_social}</p>
+<p><b>Direcció:</b> {persona.direccio}</p>
+<p><b>Codi Postal:</b> {persona.codi_postal}</p>
 
-        </tbody>
+</div>
 
-      </table>
+<div className="card">
 
-    </div>
+<h3>Situació laboral</h3>
 
-  )
+<p><b>Estat:</b> {persona.estat}</p>
+<p><b>Feina actual:</b> {persona.feina_actual}</p>
+
+</div>
+
+<div className="card">
+
+<h3>Programa</h3>
+
+<p>{persona.programes?.nom}</p>
+
+</div>
+
+<div className="card">
+
+<h3>Empresa</h3>
+
+<p>{persona.empreses?.rao_social}</p>
+
+</div>
+
+</div>
+
+)
+
 }
