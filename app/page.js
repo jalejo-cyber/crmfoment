@@ -1,4 +1,4 @@
-import Dashboard from "crmfoment/components/Dashboard.js"
+import Dashboard from "jalejo-cyber/crmfoment/components/Dashboard.js"
 
 export default function Home(){
 
