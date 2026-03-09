@@ -1,5 +1,5 @@
-import 'jalejo-cyber/crmfoment/styles/globals.css'
-import Navbar from 'jalejo-cyber/crmfoment/components/Navbar'
+import './globals.css'
+import Navbar from '../components/Navbar'
 
 export default function RootLayout({ children }) {
 
