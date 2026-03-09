@@ -2,56 +2,60 @@
 
 import { useEffect, useState } from "react"
 import { supabase } from "../../lib/supabase"
+import EmpresaForm from "../../components/EmpresaForm"
 
 export default function Empreses(){
 
-  const [empreses,setEmpreses] = useState([])
+const [empreses,setEmpreses] = useState([])
 
-  useEffect(()=>{
-    load()
-  },[])
+async function load(){
 
-  async function load(){
+const {data} = await supabase
+.from("empreses")
+.select("*")
 
-    const {data} = await supabase
-      .from("empreses")
-      .select("*")
+setEmpreses(data || [])
 
-    setEmpreses(data || [])
+}
 
-  }
+useEffect(()=>{
+load()
+},[])
 
-  return(
+return(
 
-    <div>
+<div>
 
-      <h1>Empreses</h1>
+<h1>Empreses</h1>
 
-      <table>
+<EmpresaForm reload={load}/>
 
-        <thead>
-          <tr>
-            <th>Raó Social</th>
-            <th>Contacte</th>
-            <th>Telèfon</th>
-          </tr>
-        </thead>
+<table>
 
-        <tbody>
+<thead>
+<tr>
+<th>Raó Social</th>
+<th>Contacte</th>
+<th>Telèfon</th>
+</tr>
+</thead>
 
-          {empreses.map(e => (
-            <tr key={e.id}>
-              <td>{e.rao_social}</td>
-              <td>{e.contacte}</td>
-              <td>{e.telefon}</td>
-            </tr>
-          ))}
+<tbody>
 
-        </tbody>
+{empreses.map(e=>(
+<tr key={e.id}>
+<td>{e.rao_social}</td>
+<td>{e.contacte}</td>
+<td>{e.telefon}</td>
+</tr>
+))}
 
-      </table>
+</tbody>
 
-    </div>
+</table>
 
-  )
+</div>
+
+)
+
 }
