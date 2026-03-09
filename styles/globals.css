@@ -1,0 +1,54 @@
+body{
+  font-family: Arial, sans-serif;
+  margin:0;
+  background:#f5f5f5;
+}
+
+header{
+  background:#AA2E34;
+  color:white;
+  padding:15px;
+}
+
+nav a{
+  margin-right:20px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.container{
+  padding:20px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+input, select{
+  width:100%;
+  padding:8px;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+
+button{
+  background:#AA2E34;
+  color:white;
+  border:none;
+  padding:10px;
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+td, th{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+}
